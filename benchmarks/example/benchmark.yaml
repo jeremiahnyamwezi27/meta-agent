@@ -1,0 +1,11 @@
+name: example
+description: "Simple Python tasks for testing the optimizer"
+tasks:
+  - name: fix-fibonacci
+    instruction: "The file fib.py has a bug in the fibonacci function. Fix it so that fib(10) returns 55."
+    workspace: ./workspaces/fibonacci
+    verify: ["python", "-c", "from fib import fib; assert fib(10) == 55"]
+  - name: add-tests
+    instruction: "Create test_calculator.py with pytest tests for all functions in calculator.py."
+    workspace: ./workspaces/calculator
+    verify: ["pytest", "test_calculator.py"]

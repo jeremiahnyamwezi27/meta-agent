@@ -1,0 +1,20 @@
+[project]
+name = "meta-agent"
+version = "0.1.0"
+description = "Automatically optimize agent harnesses from traces"
+requires-python = ">=3.11"
+dependencies = [
+    "claude-agent-sdk>=0.1.53",
+    "pyyaml>=6.0",
+    "pydantic>=2.0",
+    "httpx>=0.27",
+    "huggingface_hub>=0.20",
+]
+
+[project.optional-dependencies]
+tau = ["tau2"]
+harbor = ["harbor", "modal"]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

@@ -1,0 +1,11 @@
+name: tau3-bench
+type: tau3
+backend:
+  tau_repo: ""
+  domains:
+    - airline
+    - retail
+  user_model: "claude-sonnet-4-6"
+  user_model_provider: anthropic
+fast_tasks:
+  - airline
